@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Pure Javascript Accordian</title>
+    <style>
+        body {
+            font-family: Verdana;
+            font-size: 12px;
+            padding:0;
+            margin:0;
+        }
+        h1{
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        .container {
+            display: block;
+            width: 100%;
+        }
+        .accordian {
+            display: none;
+            background-color: #DDD;
+            padding: 5px;
+            margin: 3px 0 6px 0;
+        }
+        .active {
+            display: block;
+        }
+        a {
+            color: #0000FF;
+            display: block;
+            background-color: #CCC;
+        }
+        a:hover {
+            color: #999;
+            text-decoration: none;
+        }
+        a.selected {
+            color: #000;
+            font-weight: bold;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pure Javascript Accordian</h1>
+    <div class="container">
+        <a class="toggle-accordian selected" href="#content1">Toggle Content 1</a>
+        <div class="accordian active" id="content1">
+            Here is the first content<br />
+            Here is the first content<br />
+            Here is the first content
+        </div>
+        <a class="toggle-accordian" href="#content2">Toggle Content 2</a>
+        <div class="accordian" id="content2">
+            Here is the second content<br />
+            Here is the second content<br />
+            Here is the second content
+        </div>
+        <a class="toggle-accordian" href="#content3">Toggle Content 3</a>
+        <div class="accordian" id="content3">
+            Here is the third content<br />
+            Here is the third content<br />
+            Here is the third content
+        </div>
+    </div>
+    
+    <script type="text/javascript">
+    document.addEventListener("click", function (e) {
+        //execute function for accordian link only
+        if (!e.target.classList.contains("toggle-accordian"))
+            return;
+         e.preventDefault();
+
+        //Catch content div using hash value in accordian link
+        var currentContent = document.querySelector(e.target.hash);
+        if (!currentContent)
+            return;
+
+        //hide if content already open
+        if (currentContent.classList.contains("active"))
+        {
+            currentContent.classList.remove("active");
+            e.target.classList.remove("selected");
+            return;
+        }
+        
+        //hide all accordian content
+        var contentsList = document.querySelectorAll(".accordian");
+        for (var i = 0; i<contentsList.length; i++)
+        {
+            contentsList[i].classList.remove("active");
+        }
+        //deselect all accordian links
+        var linksList = document.querySelectorAll(".toggle-accordian");
+        for (var i = 0; i<linksList.length; i++)
+        {
+            linksList[i].classList.remove("selected");
+        }
+
+        //Toggle active on content div
+        currentContent.classList.add("active");
+        e.target.classList.toggle("selected");
+    }, false);
+    </script>
+</body>
+</html>
